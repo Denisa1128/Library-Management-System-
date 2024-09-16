@@ -7,6 +7,7 @@ import lombok.Data;
 @Entity
 @Table(name = "books")
 public class Book {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,7 +19,6 @@ public class Book {
     private String isbn;
     @Column(name = "genre")
     private String genre;
-   // @Column(name = "copies_available ")
-   // private int copiesAvailable;
-
+//    @Column(name = "copies_available")
+//    private int copiesAvailable;
 }

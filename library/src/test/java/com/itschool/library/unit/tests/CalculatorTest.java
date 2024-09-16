@@ -33,7 +33,7 @@ public class CalculatorTest {
     }
 
     @Test
-    void testAddition_WithResultExxedfsMaximumIntegerValue_ShouldFAil() {
+    void testAddition_WithResultExceedsMaximumIntegerValue_ShouldFail() {
 
         //given
         int a = Integer.MAX_VALUE;

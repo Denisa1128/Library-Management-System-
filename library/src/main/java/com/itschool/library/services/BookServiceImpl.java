@@ -1,28 +1,31 @@
 package com.itschool.library.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.itschool.library.models.dtos.BookDTO;
+import com.itschool.library.models.dtos.RequestBookDTO;
+import com.itschool.library.models.dtos.ResponseBookDTO;
 import com.itschool.library.models.entities.Book;
 import com.itschool.library.respositories.BookRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 @Slf4j
 @Service
 public class BookServiceImpl implements BookService {
+
     private final ObjectMapper objectMapper;
     private final BookRepository bookRepository;
-    @Autowired
-    public BookServiceImpl(ObjectMapper objectMapper, BookRepository bookRepository){
+
+    public BookServiceImpl(ObjectMapper objectMapper, BookRepository bookRepository) {
         this.objectMapper = objectMapper;
         this.bookRepository = bookRepository;
     }
-    @Override
-    public BookDTO createBook(BookDTO bookDTO) {
-        Book bookEntity = objectMapper.convertValue(bookDTO,Book.class);
-        Book bookEntityResponse = bookRepository.save(bookEntity);
-        log.info("Book with id{} was saved ", bookEntityResponse.getId());
 
-        return objectMapper.convertValue(bookEntityResponse , BookDTO.class);
+    @Override
+    public ResponseBookDTO createBook(RequestBookDTO requestBookDTO) {
+        Book bookEntity = objectMapper.convertValue(requestBookDTO, Book.class);
+        Book bookEntityResponse = bookRepository.save(bookEntity);
+        log.info("Book with id {} was saved", bookEntityResponse.getId());
+
+        return objectMapper.convertValue(bookEntityResponse, ResponseBookDTO.class);
     }
 }
