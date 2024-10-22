@@ -1,11 +1,11 @@
 package com.itschool.library.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.itschool.library.exceptions.BookNotFoundException;
+import com.itschool.library.exception.BookNotFoundException;
 import com.itschool.library.models.dtos.RequestBookDTO;
 import com.itschool.library.models.dtos.ResponseBookDTO;
 import com.itschool.library.models.entities.Book;
-import com.itschool.library.repositories.BookRepository;
+import com.itschool.library.respositories.BookRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -46,11 +46,16 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<ResponseBookDTO> getBooks(String title, String author, String genre) {
-        Specification<Book> spec = Specification.where(BookSpecification.titleContains(title)).and(BookSpecification.authorContains(author)).and(BookSpecification.genreContains(genre));
+        Specification<Book> spec = Specification
+                .where(BookSpecification.titleContains(title))
+                .and(BookSpecification.authorContains(author))
+                .and(BookSpecification.genreContains(genre));
 
         List<Book> books = bookRepository.findAll(spec);
         log.info("{} books found", books.size());
 
-        return books.stream().map(book -> objectMapper.convertValue(book, ResponseBookDTO.class)).toList();
+        return books.stream()
+                .map(book -> objectMapper.convertValue(book, ResponseBookDTO.class))
+                .toList();
     }
 }

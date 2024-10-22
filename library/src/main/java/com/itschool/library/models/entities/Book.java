@@ -3,6 +3,8 @@ package com.itschool.library.models.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Entity
 @Table(name = "books")
@@ -20,5 +22,7 @@ public class Book {
     @Column(name = "genre")
     private String genre;
     @Column(name = "copies_available")
-    private int copiesAvailable;
+    private Integer copiesAvailable;
+    @OneToMany(mappedBy = "book",cascade = CascadeType.ALL)
+    private List<BorrowRecord> borrowRecords;
 }
